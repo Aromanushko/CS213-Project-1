@@ -118,11 +118,10 @@ public class Collection {
 	 */
 	public void print() {
 		boolean empty = true;
-		for(int i = 0; i < albums.length; i ++) {
-			if(albums[i] != null) {
-				System.out.println(albums[i].toString());
-				empty = false;
-			}
+		for(Album x : albums)
+		{
+			empty = false;
+			System.out.println(x.toString());
 		}
 		if(empty) {
 			System.out.println("This Collection is Empty!");
@@ -142,9 +141,11 @@ public class Collection {
 				empty = false;
 			}
 		}
+		
 		if(empty) {
 			System.out.println("This Collection is Empty!");
 		}
+		
 		int n = talbums.length;
         for (int i = 0; i < n-1; i++)
         {
@@ -169,7 +170,22 @@ public class Collection {
 	 * Displays the list of albums in the collection ordered by genre
 	 */
 	public void printByGenre() {
-		
+		boolean empty = true;
+		for(Genre genre : Genre.values())
+		{
+			for(Album x : albums)
+			{
+				empty = false;
+				if(x.getGenre() == genre)
+				{
+					System.out.println(x.toString());
+				}
+			}
+		}
+		if(empty)
+		{
+			System.out.println("This Collection is Empty!");
+		}
 	}
 	
 }

@@ -44,7 +44,7 @@ public class Album {
 		}
 		
 		//Compare b album title and artist to this album's title and artist
-		if(balbum.title == this.title && balbum.artist == this.artist) {
+		if(balbum.getTitle() == this.title && balbum.getArtist() == this.artist) {
 			//return true if they are the same
 			return true;
 		}else {
@@ -84,4 +84,27 @@ public class Album {
 	public Date getDate() {
 		return this.releaseDate;
 	}
+	/**
+	 * helper method for returning the albums title
+	 * @return the albums title
+	 */
+	public String getTitle() { 
+		return this.title; 
+		}
+	
+	/**
+	 * helper method for returning the albums artist
+	 * @return the albums artist
+	 */
+	public String getArtist() { 
+		return this.artist; 
+		}
+	
+	/**
+	 * helper method for returning the albums genre
+	 * @return the albums genre
+	 */
+	public Genre getGenre()	{ 
+		return this.genre; 
+		}
 }
