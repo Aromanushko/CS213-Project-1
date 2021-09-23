@@ -18,21 +18,24 @@ public class CollectionManager {
 		switch(command)
 		{
 			case "A" :
+				//Check number of parameters 
 				if(numParameter == 5) {
+					//check if the date is valid
 					 if(new Date(arr[4]).isValid()) {
-						 if(Genre.valueOf(arr[3]).ordinal() == -1) {
-							 Genre gen = Genre.valueOf("Unknown");
-						 }
-						 Album a = new Album(arr[1], arr[2], Genre.valueOf(arr[3]), new Date(arr[4]));
+						 //Check validity of Genre
+						 String genre = validateGenre(arr[3]);
+						 Album a = new Album(arr[1], arr[2], Genre.valueOf(genre), new Date(arr[4]));
 						 if(collection.add(a)) {
 							retMes =  a.toString() + " >> added.";
 						 }else {
 							 retMes = a.toString() + " >> is already in the collection.";
-						 }
+						 } 
 					 }else {
+						 //Date is invalid
 						 retMes = "Invalid Date.";
 					 }
 				}else {
+					//Command has wrong number of parameters
 					retMes = "Invalid Command.";
 				}
 				
@@ -65,6 +68,18 @@ public class CollectionManager {
 			break;
 		}
 		return retMes;	
+	}
+	
+	private String validateGenre(String g) {
+		boolean isUnknown = true;
+		 for(Genre x : Genre.values()) {
+			 if(Genre.valueOf(g).equals(x)) {
+				 isUnknown = false;
+			 }
+		 }
+		 //If genre doesnt match any enums set it unknown 
+		 if(isUnknown) {g = "Unknown";}
+		 return g;
 	}
 	
 	private String parseCommand(String rawInput) {

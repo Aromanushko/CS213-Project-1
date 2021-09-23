@@ -121,10 +121,16 @@ public class Collection {
 		for(Album x : albums)
 		{
 			empty = false;
-			System.out.println(x.toString());
 		}
 		if(empty) {
 			System.out.println("This Collection is Empty!");
+		}else {
+			System.out.println("*List of Albums in the Collection.");
+			for(Album x : albums)
+			{
+				System.out.println(x.toString());
+			}
+			System.out.println("*End of List.");
 		}
 	}
 	
@@ -144,26 +150,28 @@ public class Collection {
 		
 		if(empty) {
 			System.out.println("This Collection is Empty!");
-		}
-		
-		int n = talbums.length;
-        for (int i = 0; i < n-1; i++)
-        {
-            // Find the minimum element in unsorted array
-            int min_idx = i;
-            for (int j = i+1; j < n; j++) {
-            	if(talbums[j] != null) {
-            		if (talbums[j].getDate().compareTo(talbums[min_idx].getDate()) < 0)
-                    min_idx = j;
-            	}
-            }
-            Album temp = talbums[min_idx];
-            talbums[min_idx] = talbums[i];
-            talbums[i] = temp;
-        }
-        for(int x = 0; x < talbums.length; x++) {
-        	System.out.println(talbums[x].toString());
-        }
+		}else {
+			int n = talbums.length;
+	        for (int i = 0; i < n-1; i++)
+	        {
+	            // Find the minimum element in unsorted array
+	            int min_idx = i;
+	            for (int j = i+1; j < n; j++) {
+	            	if(talbums[j] != null) {
+	            		if (talbums[j].getDate().compareTo(talbums[min_idx].getDate()) < 0)
+	                    min_idx = j;
+	            	}
+	            }
+	            Album temp = talbums[min_idx];
+	            talbums[min_idx] = talbums[i];
+	            talbums[i] = temp;
+	        }
+	        System.out.println("*Albums by Release Date.");
+	        for(int x = 0; x < talbums.length; x++) {
+	        	System.out.println(talbums[x].toString());
+	        }
+	        System.out.println("*End of List.");
+		}   
 	}
 	
 	/**
@@ -171,21 +179,28 @@ public class Collection {
 	 */
 	public void printByGenre() {
 		boolean empty = true;
-		for(Genre genre : Genre.values())
+		for(Album x : albums)
 		{
-			for(Album x : albums)
-			{
-				empty = false;
-				if(x.getGenre() == genre)
-				{
-					System.out.println(x.toString());
-				}
-			}
+			empty = false;
 		}
 		if(empty)
 		{
 			System.out.println("This Collection is Empty!");
+		}else {
+			System.out.println("*Album Collection by Genre.");
+			for(Genre genre : Genre.values())
+			{
+				for(Album x : albums)
+				{
+					if(x.getGenre().equals(genre))
+					{
+						System.out.println(x.toString());
+					}
+				}
+			}
+			System.out.println("*End of List.");
 		}
 	}
+	
 	
 }
