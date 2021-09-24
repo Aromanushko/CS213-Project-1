@@ -88,20 +88,31 @@ public class Album {
 	 * helper method for returning the albums title
 	 * @return the albums title
 	 */
-	public String getTitle() 		{ return this.title; }
+	public String getTitle() { 
+		return this.title; 
+		}
+	
 	/**
 	 * helper method for returning the albums artist
 	 * @return the albums artist
 	 */
-	public String getArtist() 		{ return this.artist; }
-	/**
-	 * helper method for returning the albums release date
-	 * @return the albums availability
-	 */
-	public boolean isAvailable() 	{ return this.isAvailable; }
+	public String getArtist() { 
+		return this.artist; 
+		}
+	
 	/**
 	 * helper method for returning the albums genre
 	 * @return the albums genre
 	 */
-	public Genre getGenre()			{ return this.genre; }
+	public Genre getGenre()	{ 
+		return this.genre; 
+		}
+
+	/**
+	 * helper method for returning the albums availability
+	 * @return the albums genre
+	 */
+	public boolean getAvailablity()	{ 
+		return this.isAvailable; 
+		}
 }

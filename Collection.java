@@ -60,13 +60,14 @@ public class Collection {
 	
 	/**
 	 * Removed an album from the collection if it exists
-	 * @param album to remove from collection
+	 * @param rTitle title of album to remove from collection
+	 * @param rArtist artist of album to remove from collection
 	 * @return true if album is successfully removed, false if the album does not exist in collection
 	 */
-	public boolean remove(Album album) {
+	public boolean remove(String rTitle, String rArtist) {
 		//This for loop checks if the album already exists in the collection
 		for(int i = 0; i < albums.length; i++) {
-			if(album.equals(albums[i])) {
+			if(albums[i].getArtist() == rArtist && albums[i].getTitle() == rTitle) {
 				//Album exists in collection so we move the indexes down
 				for(int r = i; r < albums.length - 1; r++) {
 					albums[r] = albums[r+1];
@@ -81,16 +82,24 @@ public class Collection {
 	
 	/**
 	 * Sets album being lent out to not available if it exists in the collection
-	 * @param album to lend out
+	 * @param lTitle title of album to lend out
+	 * @param lArtist artist of album to lend out
 	 * @return false if album does not exist in collection, true if album is successfully set to not available
 	 */
-	public boolean lendingOut(Album album) {
+	public boolean lendingOut(String lTitle, String lArtist) {
 		//This for loop checks if the album already exists in the collection
 				for(int i = 0; i < albums.length; i++) {
-					if(album.equals(albums[i])) {
-						//sets availability to false if album is found
+					if(albums[i].getArtist() == lArtist && albums[i].getTitle() == lTitle) {
+						//sets availability to false if album is found and available already
+						if(albums[i].getAvailablity())
+						{
 						albums[i].setAvailability(false);
 						return true;
+						}
+						else
+						{
+							return false;
+						}
 					}
 				}
 				return false;
@@ -98,16 +107,24 @@ public class Collection {
 	
 	/**
 	 * Sets album being returned to available if it exists in the collection
-	 * @param album that is being returned
+	 * @param rTitle title of album to return
+	 * @param rArtist artist of album to return
 	 * @return false if the album does not exist in the collection, true if album is successfully set to available
 	 */
-	public boolean returnAlbum(Album album) {
+	public boolean returnAlbum(String rTitle, String rArtist) {
 		//This for loop checks if the album already exists in the collection
 		for(int i = 0; i < albums.length; i++) {
-			if(album.equals(albums[i])) {
-				//sets availability to true if album is found
-				albums[i].setAvailability(true);
+			if(albums[i].getArtist() == rArtist && albums[i].getTitle() == rTitle) {
+				//sets availability to true if album is found and not available
+				if(!albums[i].getAvailablity())
+				{
+					albums[i].setAvailability(false);
 				return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 		}
 		return false;
@@ -118,20 +135,19 @@ public class Collection {
 	 */
 	public void print() {
 		boolean empty = true;
-		/*for(int i = 0; i < albums.length; i ++) {
-			if(albums[i] != null) {
-				System.out.println(albums[i].toString());
-				empty = false;
-			}
-		}*/
-		// alternate implementation
 		for(Album x : albums)
 		{
 			empty = false;
-			System.out.println(x.toString());
 		}
 		if(empty) {
 			System.out.println("This Collection is Empty!");
+		}else {
+			System.out.println("*List of Albums in the Collection.");
+			for(Album x : albums)
+			{
+				System.out.println(x.toString());
+			}
+			System.out.println("*End of List.");
 		}
 	}
 	
@@ -148,50 +164,60 @@ public class Collection {
 				empty = false;
 			}
 		}
+		
 		if(empty) {
 			System.out.println("This Collection is Empty!");
-		}
-		int n = talbums.length;
-        for (int i = 0; i < n-1; i++)
-        {
-            // Find the minimum element in unsorted array
-            int min_idx = i;
-            for (int j = i+1; j < n; j++) {
-            	if(talbums[j] != null) {
-            		if (talbums[j].getDate().compareTo(talbums[min_idx].getDate()) < 0)
-                    min_idx = j;
-            	}
-            }
-            Album temp = talbums[min_idx];
-            talbums[min_idx] = talbums[i];
-            talbums[i] = temp;
-        }
-        for(int x = 0; x < talbums.length; x++) {
-        	System.out.println(talbums[x].toString());
-        }
+		}else {
+			int n = talbums.length;
+	        for (int i = 0; i < n-1; i++)
+	        {
+	            // Find the minimum element in unsorted array
+	            int min_idx = i;
+	            for (int j = i+1; j < n; j++) {
+	            	if(talbums[j] != null) {
+	            		if (talbums[j].getDate().compareTo(talbums[min_idx].getDate()) < 0)
+	                    min_idx = j;
+	            	}
+	            }
+	            Album temp = talbums[min_idx];
+	            talbums[min_idx] = talbums[i];
+	            talbums[i] = temp;
+	        }
+	        System.out.println("*Albums by Release Date.");
+	        for(int x = 0; x < talbums.length; x++) {
+	        	System.out.println(talbums[x].toString());
+	        }
+	        System.out.println("*End of List.");
+		}   
 	}
 	
 	/**
 	 * Displays the list of albums in the collection ordered by genre
 	 */
 	public void printByGenre() {
-		// flag for use in checking if empty collection
 		boolean empty = true;
-		for(Genre genre : Genre.values())
+		for(Album x : albums)
 		{
-			for(Album x : albums)
-			{
-				empty = false;
-				if(x.getGenre() == genre)
-				{
-					System.out.println(x.toString());
-				}
-			}
+			empty = false;
 		}
 		if(empty)
 		{
 			System.out.println("This Collection is Empty!");
+		}else {
+			System.out.println("*Album Collection by Genre.");
+			for(Genre genre : Genre.values())
+			{
+				for(Album x : albums)
+				{
+					if(x.getGenre().equals(genre))
+					{
+						System.out.println(x.toString());
+					}
+				}
+			}
+			System.out.println("*End of List.");
 		}
 	}
+	
 	
 }

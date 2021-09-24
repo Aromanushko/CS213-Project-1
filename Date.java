@@ -9,15 +9,20 @@ public class Date implements Comparable<Date>{
 	private int year;
 	private int month;
 	private int day;
+	public static final int QUADRENNIAL = 4;
+	public static final int CENTENNIAL = 10;
+	public static final int QUARTERCENTENNIAL = 400;
+	public static final int THE_EIGHTYS = 1980;
 	
 	/**
 	 * Date constructor class that takes a string date of format "mm/dd/yyyy" and create a date object
 	 * @param date string to be parsed and date object to be created
 	 */
 	public Date(String date) {
-		this.month = Integer.parseInt(date.substring(0,2));
-		this.day = Integer.parseInt(date.substring(3,5));
-		this.year = Integer.parseInt(date.substring(6,9));
+		String[] arr = (date.split("/"));
+		this.month = Integer.parseInt(arr[0]);
+		this.day = Integer.parseInt(arr[1]);
+		this.year = Integer.parseInt(arr[2]);
 	}
 	
 	/**
@@ -35,7 +40,7 @@ public class Date implements Comparable<Date>{
 	 * @return true if the date is valid, false if not
 	 */
 	public boolean isValid() {
-		public static final int 
+		//NEEDS TO BE FINISHED
 		return false;	
 	}
 	
