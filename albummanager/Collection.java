@@ -1,7 +1,11 @@
 package albummanager;
-
+/**
+ * 
+ * @author Robert Reid, Anthony Romanushko
+ * Collection class is an array of album objects
+ */
 public class Collection {
-	private Album[] albums;
+	private Album[] albums = new Album[4];
 	private int numAlbums; //Number of albums currently in collection
 	
 	/**
@@ -65,18 +69,16 @@ public class Collection {
 	 */
 	public boolean remove(Album album) {
 		//This for loop checks if the album already exists in the collection
-		for(int i = 0; i < albums.length; i++) {
-			if(album.equals(albums[i])) {
+			int index = find(album);
+			if(index != -1){
 				//Album exists in collection so we move the indexes down
-				for(int r = i; r < albums.length - 1; r++) {
+				for(int r = index; r < albums.length - 1; r++) {
 					albums[r] = albums[r+1];
 				}
-				//return true when operation is complete and album is removed
 				return true;
+			}else {
+				return false;
 			}
-			
-		}
-		return false;
 	}
 	
 	/**
@@ -86,14 +88,17 @@ public class Collection {
 	 */
 	public boolean lendingOut(Album album) {
 		//This for loop checks if the album already exists in the collection
-				for(int i = 0; i < albums.length; i++) {
-					if(album.equals(albums[i])) {
-						//sets availability to false if album is found
-						albums[i].setAvailability(false);
+				int index = find(album);
+				if(index != -1) {
+					if(albums[index].getAvailability()) {
+						albums[index].setAvailability(false);
 						return true;
+					}else {
+						return false;
 					}
+				}else {
+					return false;
 				}
-				return false;
 	}
 	
 	/**
@@ -103,14 +108,15 @@ public class Collection {
 	 */
 	public boolean returnAlbum(Album album) {
 		//This for loop checks if the album already exists in the collection
-		for(int i = 0; i < albums.length; i++) {
-			if(album.equals(albums[i])) {
+			int index = find(album);
+			if(index != -1) {
 				//sets availability to true if album is found
-				albums[i].setAvailability(true);
+				albums[index].setAvailability(true);
 				return true;
-			}
+			}else {
+			return false;	
 		}
-		return false;
+		
 	}
 	
 	/**
@@ -143,18 +149,14 @@ public class Collection {
 		Album[] talbums = new Album[albums.length];
 		for(int y = 0; y < albums.length; y++) {
 			talbums[y] = albums[y];
-			if(albums[y] != null) {
-				empty = false;
-			}
-		}
-		
+			if(albums[y] != null) empty = false;
+		}	
 		if(empty) {
 			System.out.println("This Collection is Empty!");
 		}else {
 			int n = talbums.length;
 	        for (int i = 0; i < n-1; i++)
-	        {
-	            // Find the minimum element in unsorted array
+	        {// Find the minimum element in unsorted array
 	            int min_idx = i;
 	            for (int j = i+1; j < n; j++) {
 	            	if(talbums[j] != null) {
@@ -173,16 +175,13 @@ public class Collection {
 	        System.out.println("*End of List.");
 		}   
 	}
-	
+
 	/**
 	 * Displays the list of albums in the collection ordered by genre
 	 */
 	public void printByGenre() {
 		boolean empty = true;
-		for(Album x : albums)
-		{
-			empty = false;
-		}
+		for(Album x : albums) empty = false;
 		if(empty)
 		{
 			System.out.println("This Collection is Empty!");
@@ -201,6 +200,4 @@ public class Collection {
 			System.out.println("*End of List.");
 		}
 	}
-	
-	
 }

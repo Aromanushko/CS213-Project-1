@@ -1,6 +1,6 @@
 package albummanager;
 /** 
- * @author Robert Reid, Anthony
+ * @author Robert Reid, Anthony Romanushko
  * Album object class
  */
 public class Album {
@@ -26,6 +26,16 @@ public class Album {
 		this.releaseDate = releaseDate;
 		this.isAvailable = true;
 	
+	}
+	
+	/**
+	 * Overloaded constructor for use in searching for albums
+	 * @param title title of album
+	 * @param artist artist of album
+	 */
+	public Album(String title, String artist) {
+		this.title = title;
+		this.artist = artist;
 	}
 	
 	/**
@@ -106,5 +116,13 @@ public class Album {
 	 */
 	public Genre getGenre()	{ 
 		return this.genre; 
+		}
+
+	/**
+	 * helper method for returning the albums availability
+	 * @return the albums availability 
+	 */
+	public boolean getAvailability()	{ 
+		return this.isAvailable; 
 		}
 }
