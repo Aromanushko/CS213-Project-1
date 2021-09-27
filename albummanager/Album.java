@@ -1,6 +1,6 @@
 package albummanager;
 /** 
- * @author Robert Reid, Anthony
+ * @author Robert Reid, Anthony Romanushko
  * Album object class
  */
 public class Album {
@@ -29,6 +29,16 @@ public class Album {
 	}
 	
 	/**
+	 * Overloaded constructor for use in searching for albums
+	 * @param title title of album
+	 * @param artist artist of album
+	 */
+	public Album(String title, String artist) {
+		this.title = title;
+		this.artist = artist;
+	}
+	
+	/**
 	 * Method to compare to albums, albums are equal if the title and artist are the same
 	 * @param obj object of any type
 	 * @return true if the object is an album that is equal to the target album
@@ -44,7 +54,7 @@ public class Album {
 		}
 		
 		//Compare b album title and artist to this album's title and artist
-		if(balbum.title == this.title && balbum.artist == this.artist) {
+		if(balbum.getTitle() == this.title && balbum.getArtist() == this.artist) {
 			//return true if they are the same
 			return true;
 		}else {
@@ -84,4 +94,35 @@ public class Album {
 	public Date getDate() {
 		return this.releaseDate;
 	}
+	/**
+	 * helper method for returning the albums title
+	 * @return the albums title
+	 */
+	public String getTitle() { 
+		return this.title; 
+		}
+	
+	/**
+	 * helper method for returning the albums artist
+	 * @return the albums artist
+	 */
+	public String getArtist() { 
+		return this.artist; 
+		}
+	
+	/**
+	 * helper method for returning the albums genre
+	 * @return the albums genre
+	 */
+	public Genre getGenre()	{ 
+		return this.genre; 
+		}
+
+	/**
+	 * helper method for returning the albums availability
+	 * @return the albums availability 
+	 */
+	public boolean getAvailability()	{ 
+		return this.isAvailable; 
+		}
 }
